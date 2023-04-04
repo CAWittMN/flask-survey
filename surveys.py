@@ -11,6 +11,7 @@ class Question:
         self.choices = choices
         self.allow_text = allow_text
 
+surveys = {}
 
 class Survey:
     """Questionnaire."""
@@ -21,6 +22,10 @@ class Survey:
         self.title = title
         self.instructions = instructions
         self.questions = questions
+    
+    def add_to_dict(self):
+        """add survey to dictionary of surveys"""
+        surveys[self.title]=self
 
 
 satisfaction_survey = Survey(
@@ -47,8 +52,3 @@ personality_quiz = Survey(
                  allow_text=True),
     ]
 )
-
-surveys = {
-    "satisfaction": satisfaction_survey,
-    "personality": personality_quiz,
-}
