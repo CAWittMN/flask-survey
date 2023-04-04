@@ -22,9 +22,11 @@ class Survey:
         self.title = title
         self.instructions = instructions
         self.questions = questions
+        self.add_to_dict()
     
     def add_to_dict(self):
         """add survey to dictionary of surveys"""
+
         surveys[self.title]=self
 
 
