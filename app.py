@@ -2,10 +2,8 @@ from flask import Flask, request, render_template, flash, session, redirect
 #from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey
 
-ANSWERS_KEY = "answer"
-
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "debugkey"
+app.config['SECRET_KEY'] = "secretkey"
 
 #debug = DebugToolbarExtension(app)
 
@@ -20,7 +18,7 @@ def home_page():
 def start_survey():
     """Create answer list and start the survey"""
 
-    session[ANSWERS_KEY] = []
+    session['answers'] = []
 
     return redirect("/questions/0")
 
@@ -28,7 +26,7 @@ def start_survey():
 def show_question(qid):
     """Show question"""
 
-    answers = session.get(ANSWERS_KEY)
+    answers = session['answers']
 
     if (answers is None):
         flash("You need to start the survey!")
@@ -50,9 +48,9 @@ def handle_answer():
 
     answer = request.form['answer']
 
-    answers = session[ANSWERS_KEY]
+    answers = session['answers']
     answers.append(answer)
-    session[ANSWERS_KEY] = answers
+    session['answers'] = answers
 
     if (len(answers) == len(satisfaction_survey.questions)):
         return redirect('/end')
@@ -63,7 +61,7 @@ def handle_answer():
 def finish_survey():
     """End the survey"""
 
-    answers = session[ANSWERS_KEY]
+    answers = session['answers']
 
     if (answers == None):
         flash("Please start the survey!")
