@@ -72,4 +72,6 @@ def finish_survey():
         flash("Please finish the survey!")
         return redirect(f'/questions/{len(answers)}')
     
-    return render_template('end.html')
+    results = dict(zip(satisfaction_survey.questions, answers))
+    
+    return render_template('end.html', results=results)
